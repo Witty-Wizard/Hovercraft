@@ -25,6 +25,8 @@
 #include "src/sbus/sbus.h"
 #include <Servo.h>
 
+Servo myservo
+
 /* SBUS object, reading SBUS */
 bfs::SbusRx sbus_rx(&Serial2,16,17,true);
 /* SBUS data */
@@ -55,4 +57,35 @@ void loop () {
     Serial.print("\t");
     Serial.println(data.failsafe);
   }
+}
+
+int throttle=0;
+
+void throttle(){
+  
+  data = sbus_rx.data();
+
+  throttle.write(map(data.ch[7], 0,180)); // mapped the data from 0,180
+  
+}
+
+int leftThrust = 0;
+
+void leftThrust(){
+  data = sbus_rx.data();
+
+  leftThrust.write(map(data.ch[8], 0, 180));
+
+
+  
+  
+}
+
+
+int rightThrust = 0;
+
+void rightThrust(){
+  data = sbus_rx.data();
+
+  rightThrust.write(map(data.ch[9],0, 180));
 }
