@@ -23,13 +23,17 @@
 */
 
 #include "src/sbus/sbus.h"
+#include <Servo.h>
 
 /* SBUS object, reading SBUS */
 bfs::SbusRx sbus_rx(&Serial2,16,17,true);
 /* SBUS data */
 bfs::SbusData data;
 
+Servo inflate;
+
 void setup() {
+  inflate.attach(23);
   Serial.begin(115200);
   while (!Serial) {}
   /* Begin the SBUS communication */
@@ -40,8 +44,9 @@ void loop () {
   if (sbus_rx.Read()){
     /* Grab the received data */
     data = sbus_rx.data();
+    inflate.write(map(data.ch[2],173,1180,0,180));
     /* Display the received data */
-    for (int8_t i = 0; i < data.NUM_CH; i++) {
+    for (int8_t i = 0; i < 4; i++) {
       Serial.print(data.ch[i]);
       Serial.print("\t");
     }
