@@ -56,12 +56,17 @@ void loop () {
     steering = map(data.ch[1],173,1180,0,180);
     
     if(steering > 90){
-      right_val = throttle_val * (180 -90)/180;
+      right_val = throttle_val * (180 -steering)/ 90;
+      left_val = throttle_val;
+    }
+    else{
+      left_val = throttle_val * steering / 90;
+      right_val = throttle_val;
     }
     
     inflate.write(map(data.ch[2],173,1180,0,180));
-    right_thrust.write(throttle_val);
-    left_thrust.write(throttle_val);
+    right_thrust.write(right_val);
+    left_thrust.write(left_val);
     /* Display the received data */
     for (int8_t i = 0; i < 4; i++) {
       Serial.print(data.ch[i]);
