@@ -39,8 +39,16 @@ int left_val = 0;
 int steering = 0;
 
 
-int max_ch3 = 1000 , max_ch2 = 1000 , max_ch1 = 1000 , max_ch0 = 1000;
-int min_ch3 = 1000 , min_ch2 = 1000 , min_ch1 = 1000 , min_ch0 = 1000;
+int max_ch3 = 1000 ;
+int max_ch2 = 1000 ;
+int max_ch1 = 1000 ;
+int max_ch0 = 1000 ;
+
+int min_ch3 = 1000 ;
+int min_ch2 = 1000 ;
+int min_ch1 = 1000 ;
+int min_ch0 = 1000 ;
+
 
 void setup() {
   inflate.attach(23);
@@ -60,7 +68,9 @@ void loop () {
   if (sbus_rx.Read()) {
     /* Grab the received data */
     data = sbus_rx.data();
-    throttle_val = map(data.ch[2], 0, 2047, 0, 180);
+    
+    throttle_val = map(constrain(data.ch[2],min_ch2 , max_ch2), min_ch2, max_ch2, 1, 180);
+
     steering = map(data.ch[0], 0, 2047, 0, 180);
 
 
@@ -75,7 +85,7 @@ void loop () {
 
     // ARM on channel 5
     if (data.ch[4] > 1000) {
-      inflate.write(map(data.ch[2], 0 , 2047, 0, 180));
+      inflate.write(throttle_val);
       right_thrust.write(right_val);
       left_thrust.write(left_val);
     }
@@ -105,7 +115,7 @@ void loop () {
 
 void calibrate()
 {
-  Serial.println("Rotate sticks in all directions);
+  Serial.println("Rotate sticks in all directions");
                  int max_ch3 = 1000 , max_ch2 = 1000 , max_ch1 =1000 , max_ch0= 1000;
                  int min_ch3 = 1000 , min_ch2 = 1000 , min_ch1 =1000 , min_ch0= 1000;
 
@@ -127,17 +137,16 @@ void calibrate()
 
                }
                  Serial.println("Calibration done paste this in code");
-                 Serial.print("int max_ch3 = "); Serial.print(max_ch3);
-                 Serial.print("int max_ch3 = "); Serial.print(max_ch3);
-                 Serial.print("int max_ch3 = "); Serial.print(max_ch3);
-                 Serial.print("int max_ch3 = "); Serial.print(max_ch3);
+                 Serial.print("int max_ch3 = "); Serial.print(max_ch3); Serial.println(";");
+                 Serial.print("int max_ch2 = "); Serial.print(max_ch2); Serial.println(";");
+                 Serial.print("int max_ch1 = "); Serial.print(max_ch1); Serial.println(";");
+                 Serial.print("int max_ch0 = "); Serial.print(max_ch0); Serial.println(";");
 
-                 Serial.print("int max_ch3 = "); Serial.print(max_ch3);
-                 Serial.print("int max_ch3 = "); Serial.print(max_ch3);
-                 Serial.print("int max_ch3 = "); Serial.print(max_ch3);
-                 Serial.print("int max_ch3 = "); Serial.print(max_ch3);
+                 Serial.print("int min_ch3 = "); Serial.print(min_ch3); Serial.println(";");
+                 Serial.print("int min_ch2 = "); Serial.print(min_ch2); Serial.println(";");
+                 Serial.print("int min_ch1 = "); Serial.print(min_ch1); Serial.println(";");
+                 Serial.print("int min_ch0 = "); Serial.print(min_ch0); Serial.println(";");
                  
-                 int min_ch3 = 1000 , min_ch2 = 1000 , min_ch1 = 1000 , min_ch0 = 1000;
 
 
 }
