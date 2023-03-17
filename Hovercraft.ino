@@ -34,10 +34,14 @@ Servo inflate;
 Servo right_thrust;
 Servo left_thrust;
 int throttle_val=0;
+int right_val=0;
+int left_val =0;
+int steering = 0;
 
 void setup() {
   inflate.attach(23);
-  throttle.attach(24);
+  right_thrust.attach(24);
+  left_thrust.attach(25);
   Serial.begin(115200);
   while (!Serial) {}
   /* Begin the SBUS communication */
@@ -48,10 +52,16 @@ void loop () {
   if (sbus_rx.Read()){
     /* Grab the received data */
     data = sbus_rx.data();
-    throttle_val = map(data.ch[3],173,1180,0,180));
+    throttle_val = map(data.ch[3],173,1180,0,180);
+    steering = map(data.ch[1],173,1180,0,180);
+    
+    if(steering > 90){
+      right_val = throttle_val * (180 -90)/180;
+    }
+    
     inflate.write(map(data.ch[2],173,1180,0,180));
-    right_thrust.write(map(data.ch[3],173,1180,0,180));
-    left_thrust.write(map(data.ch[3],173,1180,0,180));
+    right_thrust.write(throttle_val);
+    left_thrust.write(throttle_val);
     /* Display the received data */
     for (int8_t i = 0; i < 4; i++) {
       Serial.print(data.ch[i]);
