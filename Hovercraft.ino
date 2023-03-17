@@ -25,17 +25,19 @@
 #include "src/sbus/sbus.h"
 #include <Servo.h>
 
-Servo myservo
-
 /* SBUS object, reading SBUS */
 bfs::SbusRx sbus_rx(&Serial2,16,17,true);
 /* SBUS data */
 bfs::SbusData data;
 
 Servo inflate;
+Servo right_thrust;
+Servo left_thrust;
+int throttle_val=0;
 
 void setup() {
   inflate.attach(23);
+  throttle.attach(24);
   Serial.begin(115200);
   while (!Serial) {}
   /* Begin the SBUS communication */
@@ -46,7 +48,10 @@ void loop () {
   if (sbus_rx.Read()){
     /* Grab the received data */
     data = sbus_rx.data();
+    throttle_val = map(data.ch[3],173,1180,0,180));
     inflate.write(map(data.ch[2],173,1180,0,180));
+    right_thrust.write(map(data.ch[3],173,1180,0,180));
+    left_thrust.write(map(data.ch[3],173,1180,0,180));
     /* Display the received data */
     for (int8_t i = 0; i < 4; i++) {
       Serial.print(data.ch[i]);
@@ -57,35 +62,4 @@ void loop () {
     Serial.print("\t");
     Serial.println(data.failsafe);
   }
-}
-
-int throttle=0;
-
-void throttle(){
-  
-  data = sbus_rx.data();
-
-  throttle.write(map(data.ch[7], 0,180)); // mapped the data from 0,180
-  
-}
-
-int leftThrust = 0;
-
-void leftThrust(){
-  data = sbus_rx.data();
-
-  leftThrust.write(map(data.ch[8], 0, 180));
-
-
-  
-  
-}
-
-
-int rightThrust = 0;
-
-void rightThrust(){
-  data = sbus_rx.data();
-
-  rightThrust.write(map(data.ch[9],0, 180));
 }
