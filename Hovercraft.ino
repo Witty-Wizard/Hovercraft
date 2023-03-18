@@ -24,18 +24,37 @@
 
 #include "src/sbus/sbus.h"
 
+#define ROLL 0
+#define ELEVATOR 1
+#define THROTTLE 2
+#define ARM 4
+
 #define INFLATE 1
+#define THRUSTER 2
+#define RUDDER 3
+
+#define INFLATE_PIN 23
+#define THRUSTER_PIN 25
+#define RUDDER_PIN 21
+
+#define PWM_FREQUENCY 50
+#define PWM_RESOLUTION 12
+#define PWM_MIN 206
+#define PWM_MAX 406
+#define PWM_MID 306
+
+#define SBUS_RX 16
+#define SBUS_TX 17
+
 
 /* SBUS object, reading SBUS */
-bfs::SbusRx sbus_rx(&Serial2, 16, 17, true);
+bfs::SbusRx sbus_rx(&Serial2, SBUS_RX, SBUS_TX, true);
 /* SBUS data */
 bfs::SbusData data;
 
-int throttle_val = 0;
-int right_val = 0;
-int left_val = 0;
-int steering = 0;
-
+int throttle_val = PWM_MIN;
+int thrust_val = PWM_MIN;
+int rudder_val = PWM_MID;
 
 int max_ch3 = 1811;
 int max_ch2 = 1811;
@@ -49,65 +68,63 @@ int min_ch0 = 241;
 
 
 void setup() {
-  ledcSetup(INFLATE,50,12);
+  //Setup Infaltion motor on pin 23
+  ledcSetup(INFLATE,PWM_FREQUENCY,PWM_RESOLUTION);
+  ledcAttachPin(INFLATE_PIN,INFLATE);
 
-  ledcAttachPin(23,INFLATE);
+  //Setup Thruster motor on pin 25
+  ledcSetup(THRUSTER,PWM_FREQUENCY,PWM_RESOLUTION);
+  ledcAttachPin(THRUSTER_PIN,THRUSTER);
+
+  //Setup Rudder servo on pin 21
+  ledcSetup(RUDDER,PWM_FREQUENCY,PWM_RESOLUTION);
+  ledcAttachPin(RUDDER_PIN,RUDDER);
+
+  //Debugging
   Serial.begin(115200);
   while (!Serial) {}
+
+  //Begin Sbus communication
   sbus_rx.Begin();
-//  calibrate();
-//  delay(5000);
 }
 
 void loop () {
   if (sbus_rx.Read()) {
-    /* Grab the received data */
     data = sbus_rx.data();
 
-    throttle_val = map(constrain(data.ch[2], min_ch2 , max_ch2), min_ch2, max_ch2, 205, 406);
-    steering = map(data.ch[0], 0, 2047, 0, 180);
-
-
-    if (steering > 90) {
-      right_val = throttle_val * (180 - steering) / 90;
-      left_val = throttle_val;
-    }
-    else {
-      left_val = throttle_val * steering / 90;
-      right_val = throttle_val;
-    }
-
     // ARM on channel 5
-    if (data.ch[4] > 1000) {
-      ledcWrite(INFLATE,throttle_val);
+    if ((data.ch[ARM] < 1000) || data.failsafe ){
+      throttle_val = PWM_MIN;
+      thrust_val = PWM_MIN;
+      rudder_val = PWM_MID;
+      
     }
     else {
-      throttle_val = 205;
-      ledcWrite(INFLATE,throttle_val);
+      if(!data.lost_frame){
+        throttle_val = map(constrain(data.ch[THROTTLE], min_ch2 , max_ch2), min_ch2, max_ch2, PWM_MIN, PWM_MAX);
+        thrust_val = map(constrain(data.ch[ELEVATOR], min_ch0, max_ch0), min_ch0, max_ch0, PWM_MIN, PWM_MAX);
+        rudder_val = map(constrain(data.ch[ROLL], min_ch0, max_ch0), min_ch0, max_ch0, PWM_MIN, PWM_MAX);
+      }
     }
 
+    ledcWrite(INFLATE,throttle_val);
+    ledcWrite(THRUSTER,thrust_val);
+    ledcWrite(RUDDER, rudder_val);
 
 
-    /* Display the received data */
-    for (int8_t i = 2; i < 3; i++) {
+//debugging
+    for (int8_t i = 0; i < 3; i++) {
       Serial.print(data.ch[i]);
       Serial.print("\t");
     }
-    Serial.println(throttle_val);
-    /* Display lost frames and failsafe data */
-    
-//    Serial.print(right_val);
-//    Serial.print("\t");
-//    Serial.print(left_val);
-//    Serial.print("\t");
-//    Serial.print(data.lost_frame);
-//    Serial.print("\t");
-//    Serial.println(data.failsafe);
+
+    Serial.print(data.lost_frame);
+    Serial.print("\t");
+    Serial.println(data.failsafe);
   }
 }
 
-void calibrate()
-{
+void calibrate(){
   Serial.println("Rotate sticks in all directions");
   int max_ch3 = 1000 , max_ch2 = 1000 , max_ch1 = 1000 , max_ch0 = 1000;
   int min_ch3 = 1000 , min_ch2 = 1000 , min_ch1 = 1000 , min_ch0 = 1000;
@@ -140,12 +157,4 @@ void calibrate()
   Serial.print("int min_ch2 = "); Serial.print(min_ch2); Serial.println(";");
   Serial.print("int min_ch1 = "); Serial.print(min_ch1); Serial.println(";");
   Serial.print("int min_ch0 = "); Serial.print(min_ch0); Serial.println(";");
-
-
-
-}
-
-void normalize()
-{
-
 }
