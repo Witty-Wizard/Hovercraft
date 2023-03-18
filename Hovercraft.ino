@@ -23,54 +23,48 @@
 */
 
 #include "src/sbus/sbus.h"
-#include <Servo.h>
+
+#define INFLATE 1
 
 /* SBUS object, reading SBUS */
 bfs::SbusRx sbus_rx(&Serial2, 16, 17, true);
 /* SBUS data */
 bfs::SbusData data;
 
-Servo inflate;
-Servo right_thrust;
-Servo left_thrust;
 int throttle_val = 0;
 int right_val = 0;
 int left_val = 0;
 int steering = 0;
 
 
-int max_ch3 = 1000 ;
-int max_ch2 = 1000 ;
-int max_ch1 = 1000 ;
-int max_ch0 = 1000 ;
+int max_ch3 = 1811;
+int max_ch2 = 1811;
+int max_ch1 = 1811;
+int max_ch0 = 1748;
 
-int min_ch3 = 1000 ;
-int min_ch2 = 1000 ;
-int min_ch1 = 1000 ;
-int min_ch0 = 1000 ;
+int min_ch3 = 172;
+int min_ch2 = 172;
+int min_ch1 = 172;
+int min_ch0 = 241;
 
 
 void setup() {
-  inflate.attach(23);
-  right_thrust.attach(24);
-  left_thrust.attach(21);
+  ledcSetup(INFLATE,50,12);
+
+  ledcAttachPin(23,INFLATE);
   Serial.begin(115200);
   while (!Serial) {}
-  /* Begin the SBUS communication */
   sbus_rx.Begin();
-
-  inflate.write(0);
-  right_thrust.write(0);
-  left_thrust.write(0);
+//  calibrate();
+//  delay(5000);
 }
 
 void loop () {
   if (sbus_rx.Read()) {
     /* Grab the received data */
     data = sbus_rx.data();
-    
-    throttle_val = map(constrain(data.ch[2],min_ch2 , max_ch2), min_ch2, max_ch2, 1, 180);
 
+    throttle_val = map(constrain(data.ch[2], min_ch2 , max_ch2), min_ch2, max_ch2, 205, 406);
     steering = map(data.ch[0], 0, 2047, 0, 180);
 
 
@@ -85,68 +79,68 @@ void loop () {
 
     // ARM on channel 5
     if (data.ch[4] > 1000) {
-      inflate.write(throttle_val);
-      right_thrust.write(right_val);
-      left_thrust.write(left_val);
+      ledcWrite(INFLATE,throttle_val);
     }
     else {
-      inflate.write(0);
-      right_thrust.write(0);
-      left_thrust.write(0);
+      throttle_val = 205;
+      ledcWrite(INFLATE,throttle_val);
     }
 
 
 
     /* Display the received data */
-    for (int8_t i = 0; i < 5; i++) {
+    for (int8_t i = 2; i < 3; i++) {
       Serial.print(data.ch[i]);
       Serial.print("\t");
     }
+    Serial.println(throttle_val);
     /* Display lost frames and failsafe data */
-    Serial.print(right_val);
-    Serial.print("\t");
-    Serial.print(left_val);
-    Serial.print("\t");
-    Serial.print(data.lost_frame);
-    Serial.print("\t");
-    Serial.println(data.failsafe);
+    
+//    Serial.print(right_val);
+//    Serial.print("\t");
+//    Serial.print(left_val);
+//    Serial.print("\t");
+//    Serial.print(data.lost_frame);
+//    Serial.print("\t");
+//    Serial.println(data.failsafe);
   }
 }
 
 void calibrate()
 {
   Serial.println("Rotate sticks in all directions");
-                 int max_ch3 = 1000 , max_ch2 = 1000 , max_ch1 =1000 , max_ch0= 1000;
-                 int min_ch3 = 1000 , min_ch2 = 1000 , min_ch1 =1000 , min_ch0= 1000;
+  int max_ch3 = 1000 , max_ch2 = 1000 , max_ch1 = 1000 , max_ch0 = 1000;
+  int min_ch3 = 1000 , min_ch2 = 1000 , min_ch1 = 1000 , min_ch0 = 1000;
 
-                 unsigned t = millis();
-                 while(true and millis() - t < 10000)
-                 {
-                 if (sbus_rx.Read()) {
-                 data = sbus_rx.data();
-                 max_ch0 = data.ch[0] > max_ch0 ?data.ch[0]:max_ch0;
-                 max_ch1 = data.ch[1] > max_ch1 ?data.ch[1]:max_ch1;
-                 max_ch2 = data.ch[2] > max_ch2 ?data.ch[2]:max_ch2;
-                 max_ch3 = data.ch[3] > max_ch3 ?data.ch[3]:max_ch3;
+  unsigned t = millis();
+  while (true and millis() - t < 10000)
+  {
+    if (sbus_rx.Read()) {
+      data = sbus_rx.data();
+      Serial.println("Receiving data");
+      max_ch0 = data.ch[0] > max_ch0 ? data.ch[0] : max_ch0;
+      max_ch1 = data.ch[1] > max_ch1 ? data.ch[1] : max_ch1;
+      max_ch2 = data.ch[2] > max_ch2 ? data.ch[2] : max_ch2;
+      max_ch3 = data.ch[3] > max_ch3 ? data.ch[3] : max_ch3;
 
-                 min_ch0 = data.ch[0] < min_ch0 ?data.ch[0]:min_ch0;
-                 min_ch1 = data.ch[1] < min_ch1 ?data.ch[1]:min_ch1;
-                 min_ch2 = data.ch[2] < min_ch2 ?data.ch[2]:min_ch2;
-                 min_ch3 = data.ch[3] < min_ch3 ?data.ch[3]:min_ch3;
-               }
+      min_ch0 = data.ch[0] < min_ch0 ? data.ch[0] : min_ch0;
+      min_ch1 = data.ch[1] < min_ch1 ? data.ch[1] : min_ch1;
+      min_ch2 = data.ch[2] < min_ch2 ? data.ch[2] : min_ch2;
+      min_ch3 = data.ch[3] < min_ch3 ? data.ch[3] : min_ch3;
+    }
 
-               }
-                 Serial.println("Calibration done paste this in code");
-                 Serial.print("int max_ch3 = "); Serial.print(max_ch3); Serial.println(";");
-                 Serial.print("int max_ch2 = "); Serial.print(max_ch2); Serial.println(";");
-                 Serial.print("int max_ch1 = "); Serial.print(max_ch1); Serial.println(";");
-                 Serial.print("int max_ch0 = "); Serial.print(max_ch0); Serial.println(";");
+  }
+  Serial.println("Calibration done paste this in code");
+  Serial.print("int max_ch3 = "); Serial.print(max_ch3); Serial.println(";");
+  Serial.print("int max_ch2 = "); Serial.print(max_ch2); Serial.println(";");
+  Serial.print("int max_ch1 = "); Serial.print(max_ch1); Serial.println(";");
+  Serial.print("int max_ch0 = "); Serial.print(max_ch0); Serial.println(";");
 
-                 Serial.print("int min_ch3 = "); Serial.print(min_ch3); Serial.println(";");
-                 Serial.print("int min_ch2 = "); Serial.print(min_ch2); Serial.println(";");
-                 Serial.print("int min_ch1 = "); Serial.print(min_ch1); Serial.println(";");
-                 Serial.print("int min_ch0 = "); Serial.print(min_ch0); Serial.println(";");
-                 
+  Serial.print("int min_ch3 = "); Serial.print(min_ch3); Serial.println(";");
+  Serial.print("int min_ch2 = "); Serial.print(min_ch2); Serial.println(";");
+  Serial.print("int min_ch1 = "); Serial.print(min_ch1); Serial.println(";");
+  Serial.print("int min_ch0 = "); Serial.print(min_ch0); Serial.println(";");
+
 
 
 }
