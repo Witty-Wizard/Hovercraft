@@ -34,9 +34,9 @@
 #define THRUSTERC_PWM_CH 2
 #define RUDDERC_PWM_CH 3
 
-#define INFLATE_PIN 23
-#define THRUSTER_PIN 25
-#define RUDDER_PIN 21
+#define INFLATE_PIN 19
+#define THRUSTER_PIN 18
+#define RUDDER_PIN 4
 
 #define PWM_FREQUENCY 50
 #define PWM_RESOLUTION 12
@@ -67,7 +67,7 @@ int max_ch_aileron = 1748;
 
 int min_ch_rudder = 172;
 int min_ch_throttle = 172;
-int min_ch_elevator = 172;
+int min_ch_elevator = 992;
 int min_ch_aileron = 241;
 
 
@@ -106,7 +106,7 @@ void loop () {
     else {
       if(!data.lost_frame){
         throttle_val = map(constrain(data.ch[THROTTLE], min_ch_throttle , max_ch_throttle), min_ch_throttle, max_ch_throttle, PWM_MIN, PWM_MAX);
-        thrust_val = map(constrain(data.ch[ELEVATOR], min_ch_aileron, max_ch_aileron), min_ch_aileron, max_ch_aileron, PWM_MIN, PWM_MAX);
+        thrust_val = map(constrain(data.ch[ELEVATOR], min_ch_elevator, max_ch_elevator), min_ch_elevator, max_ch_elevator, PWM_MIN, PWM_MAX);
         rudder_val = map(constrain(data.ch[ROLL], min_ch_aileron, max_ch_aileron), min_ch_aileron, max_ch_aileron, PWM_MIN, PWM_MAX);
       }
     }
