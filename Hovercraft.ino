@@ -77,12 +77,12 @@ int rudder_val = PWM_MID;
 /////////////////////////////////////////////////User Specified Data /////////////////////////////////////////////
 int max_ch_rudder = 1811;
 int max_ch_throttle = 1811;
-int max_ch_elevator = 1811;
+int max_ch_elevator = 1240;
 int max_ch_aileron = 1748;
 
 int min_ch_rudder = 172;
 int min_ch_throttle = 172;
-int min_ch_elevator = 172;
+int min_ch_elevator = 1024;
 int min_ch_aileron = 241;
 
 
@@ -162,6 +162,8 @@ void loop () {
     }
 
     Serial.print(data.lost_frame);
+    Serial.print("\t");
+    Serial.print(thrust_val);
     Serial.print("\t");
     Serial.println(data.failsafe);
   }
