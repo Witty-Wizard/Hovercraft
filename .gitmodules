@@ -1,9 +1,3 @@
-[submodule "lib/sbus"]
-	path = lib/sbus
-	url = https://github.com/bolderflight/sbus.git
-[submodule "lib/DShotRMT"]
-	path = lib/DShotRMT
-	url = https://github.com/derdoktor667/DShotRMT.git
 [submodule "lib/crsf"]
 	path = lib/crsf
 	url = https://github.com/shashankmarch27/crsf.git
