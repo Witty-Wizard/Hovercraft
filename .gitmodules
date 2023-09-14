@@ -4,3 +4,9 @@
 [submodule "lib/DShotRMT"]
 	path = lib/DShotRMT
 	url = https://github.com/derdoktor667/DShotRMT.git
+[submodule "lib/crsf"]
+	path = lib/crsf
+	url = https://github.com/shashankmarch27/crsf.git
+[submodule "lib/Esc"]
+	path = lib/Esc
+	url = https://github.com/shashankmarch27/Esc.git
