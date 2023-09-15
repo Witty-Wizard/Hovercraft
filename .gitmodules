@@ -4,3 +4,6 @@
 [submodule "lib/Esc"]
 	path = lib/Esc
 	url = https://github.com/shashankmarch27/Esc.git
+[submodule "lib/sbus"]
+	path = lib/sbus
+	url = https://github.com/shashankmarch27/sbus.git
