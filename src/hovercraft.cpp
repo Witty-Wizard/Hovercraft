@@ -72,6 +72,7 @@ float forward_value = MOTOR_MID;
 float turning_value = MOTOR_MIN;
 
 void setup(){
+  // put your setup code here, to run once:
   // initialize Serial port for debugging
   Serial.begin(115200);
   
@@ -85,6 +86,7 @@ void setup(){
 }
 
 void loop(){
+  // put your main code here, to run repeatedly:
   // read the sbus packet and store in a struct called packet
   reciever.read(&packet);
 
@@ -117,6 +119,7 @@ void loop(){
   left_thrust = constrain(left_thrust,0,1023);
   inflate_value = constrain(inflate_value,0,1023);
 
+  // IIR filter on the output
   right_thrust = alpha * right_thrust + (1 - alpha) * prev_right_thrust;
   left_thrust = alpha * left_thrust + (1 - alpha) * prev_left_thrust;
   inflate_value = alpha * inflate_value + (1 - alpha) * prev_inflate_value;
