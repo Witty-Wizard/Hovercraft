@@ -1,6 +1,6 @@
 <center>
-  ![GitHub License](https://img.shields.io/github/license/Robotics-Society-PEC/Hovercraft?style=plastic)
-  ![GitHub Repo stars](https://img.shields.io/github/stars/Robotics-Society-PEC/Hovercraft?style=plastic)
+  [![GitHub License](https://img.shields.io/github/license/Robotics-Society-PEC/Hovercraft?style=plastic)
+  [![GitHub Repo stars](https://img.shields.io/github/stars/Robotics-Society-PEC/Hovercraft?style=plastic)
 </center>
 
 # Hovercraft
