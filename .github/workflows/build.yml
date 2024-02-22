@@ -3,8 +3,8 @@ name: PlatformIO CI
 on: [push, pull_request]
 
 jobs:
-  get_default_envs:
-    name: Gather Enviornments 
+  build:
+    name: build 
     runs-on: ubuntu-latest
 
     steps:
@@ -34,12 +34,6 @@ jobs:
         with:
           path: ~/.platformio
           key: ${{ runner.os }}-platformio
-  
-  build:
-    name: build
-    needs: [get_default_envs]
-    runs-on: ubuntu-latest
-
-    steps:
+      
       - name: Build PlatformIO Project
         run: pio run
