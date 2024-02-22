@@ -34,6 +34,11 @@ jobs:
         with:
           path: ~/.platformio
           key: ${{ runner.os }}-platformio
+  
+  build:
+    name: build
+    runs-on: ubuntu-latest
 
+    steps:
       - name: Build PlatformIO Project
         run: pio run
