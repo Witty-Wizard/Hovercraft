@@ -37,6 +37,7 @@ jobs:
   
   build:
     name: build
+    needs: [get_default_envs]
     runs-on: ubuntu-latest
 
     steps:
