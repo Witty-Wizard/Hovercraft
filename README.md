@@ -1,4 +1,4 @@
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Robotics-Society-PEC/Hovercraft/test.yml)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Robotics-Society-PEC/Hovercraft/test.yml?style=plastic)
 ![GitHub License](https://img.shields.io/github/license/Robotics-Society-PEC/Hovercraft?style=plastic)
 ![GitHub Repo stars](https://img.shields.io/github/stars/Robotics-Society-PEC/Hovercraft?style=plastic)
 
