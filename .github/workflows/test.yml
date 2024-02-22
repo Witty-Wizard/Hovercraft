@@ -7,12 +7,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Update Submodule
-        run: |
-          cd $GITHUB_WORKSPACE
-          git submodule update --init --recursive
-          git submodule update --remote
       - uses: actions/checkout@v3
+        with: 
+          submodules: recursive
+          token: ${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}
       - uses: actions/cache@v3
         with:
           path: |
