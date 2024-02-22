@@ -8,9 +8,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with: 
-          submodules: recursive
-          token: ${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}
       - uses: actions/cache@v3
         with:
           path: |
