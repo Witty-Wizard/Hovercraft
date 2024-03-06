@@ -3,9 +3,6 @@
 #include <Arduino.h>
 #include "sbus_protocol.h"
 
-int tx_pin;
-int rx_pin;
-
 #ifdef ESP32
 HardwareSerial *sbus_port;
 

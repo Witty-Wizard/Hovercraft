@@ -2,9 +2,6 @@
 #define CRSF_H
 #include <Arduino.h>
 #include "crsf_protocol.h"
- 
-int tx_pin;
-int rx_pin;
 
 bool header_detected;
 uint8_t rx_index;
@@ -21,14 +18,12 @@ HardwareSerial *crsf_port;
 
 #endif
 
-bool inverted;
-
 crsf_channels_t packet;
 crsfLinkStatistics_t link_status;
 crsf_header_t header;
 
 #ifdef ESP32
-void init(HardwareSerial *crsf_port, int rx_pin, int tx_pin, bool inverted = UNINVERTED_CRSF);
+void init(HardwareSerial *crsf_port, int rx_pin, int tx_pin, bool inverted = false);
 
 #elif defined(ARDUINO_ARCH_RP2040)
 void init(SerialUART *crsf_port, int rx_pin, int tx_pin);

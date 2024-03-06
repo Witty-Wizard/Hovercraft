@@ -4,7 +4,7 @@
 
 #define MODE_3D true
 
-enum protocol{
+enum protocol_motor{
     PWM,
     FAST_PWM,
     ONESHOT125,
@@ -22,11 +22,11 @@ private:
     int mid_value;
     int max_value;
     bool mode;
-    protocol protocol_t;
+    protocol_motor protocol_t;
 
 public:
 
-    esc(int pin, protocol protocol, bool mode = false);
+    esc(int pin, protocol_motor protocol_t, bool mode = false);
 
     void init();
     void write(float value);

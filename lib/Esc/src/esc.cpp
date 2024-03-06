@@ -5,7 +5,7 @@
 int counter = 1;
 #endif
 
-esc::esc(int pin, protocol protocol_t ,bool mode){
+esc::esc(int pin, protocol_motor protocol_t ,bool mode){
     this->pin = pin;
     this->mode = mode;
     this->protocol_t = protocol_t;

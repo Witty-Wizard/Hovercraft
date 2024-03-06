@@ -17,7 +17,6 @@ void serial_rx::init(){
         
     }
     else{
-        #if (protocol_t == SBUS)
-        #error "Invalid Protocol"
+        
     }
 }
