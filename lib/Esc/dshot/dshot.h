@@ -1,10 +1,11 @@
+#ifndef DSHOT_H
+#define DSHOT_H
 #include <Arduino.h>
 #include<esp32-hal-rmt.h>
 
 #define DSHOT_BITS 16
 
-#define MOTOR_PIN   21 
-rmt_obj_t* rmt = NULL;
+
 // 11 bit throttle: 2048 possible values. 0 is reserved for disarmed. 1-47 are reserved for special commands. Leaving 48 to 2047 (2000 steps) for the actual throttle value
 // 1 bit telemetry request - if this is set, telemetry data is sent back via a separate channel
 // 4 bit CRC: (Cyclic Redundancy) Check to validate data (throttle and telemetry request bit)
@@ -64,3 +65,5 @@ void loop() {
     rmtWrite(rmt, &dshot_bit_0, DSHOT_BITS);
     delay(100);
 }
+
+#endif

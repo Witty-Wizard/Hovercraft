@@ -1,33 +1,18 @@
 #include "sbus.h"
 
 #ifdef ESP32
-sbus::sbus(HardwareSerial *sbus_port, int rx_pin, int tx_pin, bool inverted){
-    this->inverted = inverted;
-    this->sbus_port = sbus_port;
-    this->tx_pin = tx_pin;
-    this->rx_pin = rx_pin;
-}
-
-void sbus::init(){
+void init_sbus(HardwareSerial *sbus_port, int rx_pin, int tx_pin, bool inverted = true){
     sbus_port->begin(BAUDRATE_SBUS,SERIAL_8E2,rx_pin,tx_pin,inverted);
 }
-
 #elif defined(ARDUINO_ARCH_RP2040)
-sbus::sbus(SerialUART *port, int rx, int tx){
-    sbus_port = port;
-    tx_pin = tx;
-    rx_pin = rx;
-}
-
-void sbus::init(){
+void init_sbus(SerialUART *port, int rx_pin = 1, int tx_pin = 0){
     sbus_port->setTX(tx_pin);
     sbus_port->setRX(rx_pin);
     sbus_port->begin(BAUDRATE_SBUS,SERIAL_8E2);
 }
-
 #endif
 
-void sbus::read(sbuspacket_t* data){
+void read(sbuspacket_t* data){
 
     while(sbus_port->available()){
         prev_buffer_sbus = buffer_sbus;
@@ -57,6 +42,6 @@ void sbus::read(sbuspacket_t* data){
     memcpy(data,data_rx,sizeof(*data));
 }
 
-void sbus::write(sbuspacket_t* data){
+void write(sbuspacket_t* data){
         sbus_port->write((char*)data,sizeof(*data));
 }

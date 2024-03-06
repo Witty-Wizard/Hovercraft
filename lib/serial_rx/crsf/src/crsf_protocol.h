@@ -4,8 +4,6 @@
 
 #define PACKED __attribute__((packed))
 
-#define UNINVERTED_CRSF false
-#define INVERTED_CRSF true
 #define CRSF_BAUDRATE 420000
 #define CRSF_NUM_CHANNELS 16
 #define CRSF_CHANNEL_VALUE_MIN 172 // 987us - actual CRSF min is 0 with E.Limits on
