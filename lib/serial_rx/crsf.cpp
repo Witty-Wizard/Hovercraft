@@ -1,19 +1,19 @@
 #include "crsf.h"
 
 #if defined(ESP32)
-void init(){
+void init_crsf(HardwareSerial *crsf_port, int rx_pin, int tx_pin, bool inverted = false){
     crsf_port->begin(CRSF_BAUDRATE, SERIAL_8N1, rx_pin, tx_pin, inverted);
 }
 
 #elif defined(ARDUINO_ARCH_RP2040)
-void init(){
+void init_crsf(HardwareSerial *crsf_port, int rx_pin, int tx_pin, bool inverted = false){
     crsf_port->setRX(rx_pin);
     crsf_port->setTX(tx_pin);
     crsf_port->begin(CRSF_BAUDRATE, SERIAL_8N1);
 }
 
 #elif defined(STM32F4xx)
-void init(){
+void init_crsf(){
     crsf_port->begin(CRSF_BAUDRATE, SERIAL_8N1);
 }
 #endif

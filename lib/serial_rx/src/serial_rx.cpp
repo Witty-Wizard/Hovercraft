@@ -17,6 +17,6 @@ void serial_rx::init(){
         
     }
     else{
-        
+        log_e("invalid protocol");
     }
 }

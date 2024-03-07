@@ -24,7 +24,7 @@
 
 #include <Arduino.h>
 // #include <serial_rx.h>
-#include <esc.h>
+// #include <esc.h>
 
 void setup(){
 
