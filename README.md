@@ -1,12 +1,8 @@
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Robotics-Society-PEC/Hovercraft/build.yml?style=plastic)
-![GitHub License](https://img.shields.io/github/license/Robotics-Society-PEC/Hovercraft?style=plastic)
-![GitHub Repo stars](https://img.shields.io/github/stars/Robotics-Society-PEC/Hovercraft?style=plastic)
-
-
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Robotics-Society-PEC/Hovercraft/build.yml)
+![GitHub Release](https://img.shields.io/github/v/release/Robotics-Society-PEC/Hovercraft)
+![GitHub License](https://img.shields.io/github/license/Robotics-Society-PEC/Hovercraft)
+![GitHub Repo stars](https://img.shields.io/github/stars/Robotics-Society-PEC/Hovercraft?style=flat)
 # Hovercraft
-
-## Introduction
-
 Welcome to our project repository! Here you'll find all the resources, documentation, and source code related to our project.
 
 ## About Hovercraft
@@ -15,38 +11,65 @@ This hovercraft was designed using 2 2400 emax 2207 motors , xylo 40A ESC and ES
 
 The Esp32 is responsible for decoding the sbus signal from the reciever and then produce the output signals for motor. The main reason of using ESP32 was so that we could reverse the direction of motor using 3d mode which is run over the dshot protocol. This nabled the hovercraft to go in the reverse direction if required even if that was with very less efficiency.
 
-<!-- ## Features
+## Features
+- Multiple rc protocol support including crsf and sbus.
+- supports dshot output and motor reversibility .
 
-- Feature 1: [Brief description]
-- Feature 2: [Brief description]
-- Feature 3: [Brief description] -->
+with many more features on the way!
 
 ## Getting Started
 
-To get started, follow these steps:
+### Setting up Development Enviorment
+To set up your development environment, follow these steps:
 
-1. Clone this repository:
+1. Install Visual Studio Code (VS Code):
+- Download and install VS Code from the [official website](https://code.visualstudio.com/).
+
+2. Install PlatformIO Extension:
+- Open VS Code.
+- Go to the Extensions view by clicking on the square icon in the sidebar or pressing Ctrl+Shift+X.
+- Search for "PlatformIO" in the Extensions Marketplace.
+- Click on "Install" to install the PlatformIO extension.
+- Restart VS Code after installation is complete.
+
+
+### Cloning the Repository
+To get started with the project, follow these steps:
+
+1. Clone the repository to your local machine:
 
     ```bash
     git clone https://github.com/Robotics-Society-PEC/Hovercraft.git
     ```
+2. Open the project in Visual Studio Code (VS Code):
 
-## Usage
-
-[Explain how to use your project, provide code examples, etc.]
+- Launch VS Code.
+- Click on "File" > "Open Folder...".
+- Navigate to the directory where you cloned the repository (Cansat-Flight-Software) and select it.
+- The project will open in VS Code, and you can start working on it.
 
 ## Contributing
 
-We welcome contributions from the community! If you'd like to contribute to [Your Project Name], please follow these guidelines:
+We welcome contributions from the community! If you'd like to contribute, please follow these guidelines:
 
-- Fork the repository
-- Create your feature branch: `git checkout -b feature-name`
-- Commit your changes: `git commit -am 'Add some feature'`
-- Push to the branch: `git push origin feature-name`
-- Submit a pull request
+1. Fork the repository
+2. Create your feature branch: 
+    ```bash
+    git checkout -b feature-name`
+    ```
+3. Commit your changes:
+    ```bash
+    git commit -am 'Add some feature'
+    ```
+
+4. Push to the branch: 
+    ``` bash
+    git push origin feature-name
+    ```
+5. Submit a pull request
 
 For major changes, please open an issue first to discuss what you would like to change.
 
+
 ## License
 See the [LICENSE](LICENSE) file for details.
-
