@@ -3,8 +3,8 @@ name: PlatformIO CI
 on: [push, pull_request]
 
 jobs:
-  build:
-    name: build 
+  get_default_envs:
+    name: Build Project
     runs-on: ubuntu-latest
 
     steps:
@@ -34,6 +34,12 @@ jobs:
         with:
           path: ~/.platformio
           key: ${{ runner.os }}-platformio
-      
-      - name: Build PlatformIO Project
+
+      - name: Build Project
         run: pio run
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: .pio/build/**/firmware.bin

@@ -1,4 +1,4 @@
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Robotics-Society-PEC/Hovercraft/build.yml)
+![PlatformIO CI](https://github.com/Robotics-Society-PEC/Hovercraft/actions/workflows/build.yml/badge.svg)
 ![GitHub Release](https://img.shields.io/github/v/release/Robotics-Society-PEC/Hovercraft)
 ![GitHub License](https://img.shields.io/github/license/Robotics-Society-PEC/Hovercraft)
 ![GitHub Repo stars](https://img.shields.io/github/stars/Robotics-Society-PEC/Hovercraft?style=flat)
