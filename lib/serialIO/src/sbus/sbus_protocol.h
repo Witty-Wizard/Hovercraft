@@ -6,7 +6,7 @@
 
 #define HEADER_SBUS 0X0F
 #define FOOTER_SBUS 0X00
-#define BAUDRATE_SBUS 100000
+#define SBUS_BAUDRATE 100000
 
 typedef struct sbuspacket_s {
   unsigned syncbyte : 8;

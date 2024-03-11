@@ -2,8 +2,6 @@
 #ifndef SERIALIO_H
 #define SERIALIO_H
 #include <Arduino.h>
-#include "crsf.h"
-#include "sbus.h"
 
 class serialIO {
 public:

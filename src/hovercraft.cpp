@@ -23,13 +23,13 @@
 */
 
 #include <Arduino.h>
+#include <crsf/crsf.h>
+#include <sbus/sbus.h>
 #include <serialIO.h>
 
-crsf crsfRx(Serial1,16,17);
-serialIO* receiver = &crsfRx;
+crsf crsfRx(Serial1, 16, 17);
+serialIO *receiver = &crsfRx;
 
-void setup() {
-  receiver->begin();
-}
+void setup() { receiver->begin(); }
 
 void loop() {}
