@@ -2,6 +2,7 @@
 #ifndef SERIALIO_H
 #define SERIALIO_H
 #include <Arduino.h>
+#include "crsf/crsf_protocol.h"
 
 class serialIO {
 public:
@@ -9,6 +10,8 @@ public:
       : _rxPort(rxPort), _rxPin(rxPin), _txPin(txPin), _inverted(inverted){};
   virtual ~serialIO(){};
   virtual void begin();
+  virtual void processIncoming();
+  virtual void getChannel(crsf_channels_t *channelData);
 
 protected:
   HardwareSerial *_rxPort;
