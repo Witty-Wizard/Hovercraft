@@ -10,19 +10,21 @@
 #include <Arduino.h>
 #include <esp32-hal-rmt.h>
 
-#include <serialIO.h>
 #include <crsf/crsf.h>
 #include <sbus/sbus.h>
+#include <serialIO.h>
 
 crsf_channels_t channelData;
 
-serialIO *receiver = new sbus(Serial1, 16, 17);;
+serialIO *receiver = NULL;
 
-void setup() { 
-    receiver->begin();
- }
+void setup() {
+  Serial.begin(115200);
+  receiver = new sbus(Serial1,5,10);
+  receiver->begin();
+}
 
 void loop() {
-    receiver->processIncoming();
-    receiver->getChannel(&channelData);
+  // receiver->processIncoming();
+  // receiver->getChannel(&channelData);
 }

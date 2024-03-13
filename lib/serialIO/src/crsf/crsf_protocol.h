@@ -1,26 +1,31 @@
+/*!
+ * @file crsf_protocol.h
+ * @brief Header file for the CRSF protocol implementation.
+ */
 #pragma once
 
 #include <stdint.h>
 
 #define PACKED __attribute__((packed))
 
-#define CRSF_BAUDRATE 420000
-#define CRSF_NUM_CHANNELS 16
+#define CRSF_BAUDRATE 420000 ///< CRSF default baud rate
+#define CRSF_NUM_CHANNELS 16 ///< CRSF number of channels
 #define CRSF_CHANNEL_VALUE_MIN                                                 \
-  172 // 987us - actual CRSF min is 0 with E.Limits on
+  172 ///< 987us - actual CRSF min is 0 with E.Limits on
 #define CRSF_CHANNEL_VALUE_1000 191
-#define CRSF_CHANNEL_VALUE_MID 992
+#define CRSF_CHANNEL_VALUE_MID 992 ///< mid value of channel
 #define CRSF_CHANNEL_VALUE_2000 1792
 #define CRSF_CHANNEL_VALUE_MAX                                                 \
-  1811 // 2012us - actual CRSF max is 1984 with E.Limits on
+  1811 ///< 2012us - actual CRSF max is 1984 with E.Limits on
 #define CRSF_CHANNEL_VALUE_SPAN                                                \
   (CRSF_CHANNEL_VALUE_MAX - CRSF_CHANNEL_VALUE_MIN)
 #define CRSF_MAX_PACKET_SIZE                                                   \
-  64 // max declared len is 62+DEST+LEN on top of that = 64
+  64 ///< max declared len is 62+DEST+LEN on top of that = 64
 #define CRSF_MAX_PAYLOAD_LEN                                                   \
   (CRSF_MAX_PACKET_SIZE -                                                      \
-   4) // Max size of payload in [dest] [len] [type] [payload] [crc8]
+   4) ///< Max size of payload in [dest] [len] [type] [payload] [crc8]
 
+/** Length of different CRSF frame */
 enum {
   CRSF_FRAME_LENGTH_ADDRESS = 1,     // length of ADDRESS field
   CRSF_FRAME_LENGTH_FRAMELENGTH = 1, // length of FRAMELENGTH field
@@ -63,7 +68,7 @@ typedef enum {
       0x7A, // response request using msp sequence as command
   CRSF_FRAMETYPE_MSP_RESP = 0x7B,  // reply with 58 byte chunked binary
   CRSF_FRAMETYPE_MSP_WRITE = 0x7C, // write with 8 byte chunked binary (OpenTX
-                                   // outbound telemetry buffer limit)
+                                   // outbound telemetry_buffer limit)
 } crsf_frame_type_e;
 
 typedef enum {
@@ -82,6 +87,8 @@ typedef enum {
   CRSF_ADDRESS_CRSF_TRANSMITTER = 0xEE,
 } crsf_addr_e;
 
+/** This structure defines the header of a CRSF frame, including the device
+ * address, frame size,and frame type.*/
 typedef struct crsf_header_s {
   uint8_t device_addr; // from crsf_addr_e
   uint8_t frame_size;  // counts size after this byte, so it must be the payload
