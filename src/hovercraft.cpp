@@ -10,8 +10,8 @@
 #include <Arduino.h>
 #include <esp32-hal-rmt.h>
 
-#include <crsf.h>
-#include <sbus.h>
+#include <crsf/crsf.h>
+#include <sbus/sbus.h>
 #include <serialIO.h>
 
 crsf_channels_t channelData;
