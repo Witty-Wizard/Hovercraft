@@ -1,35 +1,11 @@
 /*!
  * @file serialIO.h
- *
- * @mainpage SerialIO
- * @section intro_sec Introduction
- * @brief A versatile Arduino library that provides support for decoding
- * multiple RC protocols.
- *
- * SerialIO is a common library designed to simplify the implementation of RC
- * protocol decoding in Arduino projects. It provides a modular and extensible
- * architecture that allows for easy integration of various RC protocols.
- *
- * @section author Author
- * Written by Witty Wizard
- * @section license License
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * @brief Header file for serial input/output (IO) functionality.
  */
 #pragma once
 #ifndef SERIALIO_H
 #define SERIALIO_H
-#include "crsf/crsf_protocol.h"
+#include "crsf_protocol.h"
 #include <Arduino.h>
 
 /**************************************************************************/

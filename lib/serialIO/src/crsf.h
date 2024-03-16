@@ -8,15 +8,14 @@
 #define CRSF_H
 
 #include "crsf_protocol.h" // Include header file for CRSF protocol
-#include <serialIO.h>      // Include header file for the serial IO class
+#include "serialIO.h"      // Include header file for the serial IO class
 
 /**
  * @brief A class for handling CRSF protocol communication.
  */
 class crsf : public serialIO {
 private:
-  uint8_t
-      __rxData[CRSF_MAX_PACKET_SIZE]; ///< RX data_buffer for CRSF communication
+  uint8_t _rxData[CRSF_MAX_PACKET_SIZE];
 
 public:
   /**

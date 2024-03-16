@@ -7,8 +7,8 @@
 #ifndef SBUS_H
 #define SBUS_H
 
-#include "../crsf/crsf_protocol.h" // Include header file for CRSF protocol
-#include <serialIO.h> // Include header file for the serial IO class
+#include "crsf_protocol.h" // Include header file for CRSF protocol
+#include "serialIO.h"      // Include header file for the serial IO class
 
 #define HEADER_SBUS 0X0F        ///< SBUS Header Byte
 #define FOOTER_SBUS 0X00        ///< SBUS Footer Byte
@@ -20,8 +20,7 @@
  */
 class sbus : public serialIO {
 private:
-  uint8_t
-      __rxData[SBUS_MAX_PACKET_SIZE]; ///< RX data_buffer for SBUS communication
+  uint8_t _rxData[SBUS_MAX_PACKET_SIZE];
 
 public:
   /**
