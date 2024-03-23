@@ -8,25 +8,26 @@
  */
 
 #include <Arduino.h>
-#include <serialIO.h>
 #include <DriveMaster.h>
+#include <serialIO.h>
 
 crsf_channels_t channelData;
 
-serialIO *receiver = NULL;
-DriveMaster *motor = nullptr;
+serialIO *receiver = nullptr;
+DriveMaster *motorInflate = nullptr;
+DriveMaster *motorThrust = nullptr;
 
 void setup() {
-    Serial.begin(115200);
-    receiver = new crsf(Serial1,5,-1);
-    receiver->begin();
-    motor = new dshot(5);
-    motor->begin();
+  Serial.begin(115200);
+  receiver = new crsf(Serial1, 5);
+
+  motorInflate = new dshot(18);
+  motorThrust = new dshot(5);
+
+  receiver->begin();
+  motorInflate->begin();
+  motorThrust->begin();
 }
 
 void loop() {
-    receiver->processIncoming();
-    receiver->getChannel(&channelData);
-    Serial.println(channelData.channel1);
-    motor->write();
 }

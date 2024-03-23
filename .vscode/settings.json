@@ -2,6 +2,17 @@
   "cmake.configureOnOpen": false,
   "files.associations": {
     "esp32-hal.h": "c",
-    "esp32-hal-rmt.h": "c"
+    "esp32-hal-rmt.h": "c",
+    "deque": "cpp",
+    "string": "cpp",
+    "vector": "cpp",
+    "*.tcc": "cpp",
+    "exception": "cpp",
+    "fstream": "cpp",
+    "iosfwd": "cpp",
+    "new": "cpp",
+    "ostream": "cpp",
+    "sstream": "cpp",
+    "streambuf": "cpp"
   }
 }
