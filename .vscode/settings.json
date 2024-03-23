@@ -1,3 +1,7 @@
 {
-  "cmake.configureOnOpen": false
+  "cmake.configureOnOpen": false,
+  "files.associations": {
+    "esp32-hal.h": "c",
+    "esp32-hal-rmt.h": "c"
+  }
 }
