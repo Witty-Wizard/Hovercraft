@@ -2,18 +2,18 @@
  * @file main.cpp
  * @brief Main application file.
  * @author Robotics Society
- * @date March 11, 2024
+ * @date April , 2024
  *
  * @license GNU General Public License Version 3
  */
 
 #include <Arduino.h>
 #include <DriveMaster.h>
-#include <serialIO.h>
+#include <SerialIO.h>
 
 crsf_channels_t channelData;
 
-serialIO *receiver = nullptr;
+SerialIO *receiver = nullptr;
 DriveMaster *motorInflate = nullptr;
 DriveMaster *motorThrust = nullptr;
 
