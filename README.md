@@ -45,7 +45,7 @@ To get started with the project, follow these steps:
 
 - Launch VS Code.
 - Click on "File" > "Open Folder...".
-- Navigate to the directory where you cloned the repository (Cansat-Flight-Software) and select it.
+- Navigate to the directory where you cloned the repository (Hovercraft) and select it.
 - The project will open in VS Code, and you can start working on it.
 
 ## Contributing
