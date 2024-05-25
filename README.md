@@ -1,12 +1,12 @@
-<div align="center">
+<p align="center">
   <img src="https://github.com/Robotics-Society-PEC/Hovercraft/actions/workflows/build.yml/badge.svg" alt="PlatformIO CI">
   <img src="https://img.shields.io/github/v/release/Robotics-Society-PEC/Hovercraft" alt="GitHub Release">
   <img src="https://img.shields.io/github/license/Robotics-Society-PEC/Hovercraft" alt="GitHub License">
   <img src="https://img.shields.io/github/stars/Robotics-Society-PEC/Hovercraft?style=flat" alt="GitHub Repo stars">
-  <a href="https://gitpod.io/#https://github.com/Robotics-Society-PEC/Hovercraft.git">
-    <img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod Ready-to-Code">
-  </a>
-</div>
+  <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/Robotics-Society-PEC/Hovercraft">
+  <img alt="GitHub forks" src="https://img.shields.io/github/forks/Robotics-Society-PEC/Hovercraft?style=flat">
+  <a href="https://gitpod.io/#https://github.com/Robotics-Society-PEC/Hovercraft.git"><img src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod Ready-to-Code"></a>
+</p>
 
 # Hovercraft
 Welcome to our project repository! Here you'll find all the resources, documentation, and source code related to our project.
