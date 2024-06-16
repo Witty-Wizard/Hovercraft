@@ -19,7 +19,7 @@ DriveMaster *motorThrust = nullptr;
 
 void setup() {
   Serial.begin(115200);
-  receiver = new crsf(Serial1, 5);
+  receiver = new crsf(&Serial1, 5);
 
   motorInflate = new dshot(18);
   motorThrust = new dshot(5);
